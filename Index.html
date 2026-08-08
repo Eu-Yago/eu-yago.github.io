@@ -22,7 +22,6 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -38,7 +37,6 @@
   }
 
   a { color: inherit; text-decoration: none; }
-
   ::selection { background: var(--accent); color: var(--bg); }
 
   :focus-visible {
@@ -52,12 +50,9 @@
     padding: 0 24px;
   }
 
-  /* NAV */
   nav {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     z-index: 100;
     background: rgba(13, 15, 18, 0.85);
     backdrop-filter: blur(8px);
@@ -94,17 +89,12 @@
   }
 
   .nav-links a:hover { color: var(--text); }
-
-  .nav-links a::before {
-    content: attr(data-cmd);
-    color: var(--teal);
-  }
+  .nav-links a::before { content: attr(data-cmd); color: var(--teal); }
 
   @media (max-width: 640px) {
     .nav-links { gap: 16px; font-size: 11px; }
   }
 
-  /* HERO — terminal boot sequence */
   .hero {
     min-height: 100vh;
     display: flex;
@@ -162,10 +152,7 @@
   .term-line { margin-bottom: 8px; color: var(--text-dim); }
   .term-line .prompt { color: var(--teal); }
   .term-line .path { color: var(--accent); }
-
-  .term-output {
-    margin: 18px 0 6px;
-  }
+  .term-output { margin: 18px 0 6px; }
 
   .hero-name {
     font-family: var(--sans);
@@ -225,7 +212,6 @@
   }
 
   .btn-primary:hover { background: #eab654; border-color: #eab654; }
-
   .btn-ghost { color: var(--text); }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
@@ -238,11 +224,7 @@
     margin-bottom: 40px;
   }
 
-  .section-tag {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--accent);
-  }
+  .section-tag { font-family: var(--mono); font-size: 13px; color: var(--accent); }
 
   .section-title {
     font-size: clamp(24px, 4vw, 32px);
@@ -250,13 +232,8 @@
     letter-spacing: -0.01em;
   }
 
-  .section-rule {
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
+  .section-rule { flex: 1; height: 1px; background: var(--border); }
 
-  /* PROJECTS */
   .projects { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
 
   .project {
@@ -274,18 +251,8 @@
     .project { grid-template-columns: 1fr; gap: 10px; }
   }
 
-  .project-num {
-    font-family: var(--mono);
-    color: var(--text-dim);
-    font-size: 13px;
-  }
-
-  .project-name {
-    font-size: 19px;
-    font-weight: 600;
-    margin-bottom: 6px;
-  }
-
+  .project-num { font-family: var(--mono); color: var(--text-dim); font-size: 13px; }
+  .project-name { font-size: 19px; font-weight: 600; margin-bottom: 6px; }
   .project-name a:hover { color: var(--accent); }
 
   .project-desc {
@@ -295,11 +262,7 @@
     margin-bottom: 14px;
   }
 
-  .project-tags {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
+  .project-tags { display: flex; gap: 8px; flex-wrap: wrap; }
 
   .tag {
     font-family: var(--mono);
@@ -310,7 +273,6 @@
     border-radius: 4px;
   }
 
-  /* SKILLS */
   .skills-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -335,7 +297,6 @@
 
   .skill-items { font-size: 14px; color: var(--text-dim); line-height: 1.8; }
 
-  /* ABOUT */
   .about-grid {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
@@ -351,14 +312,10 @@
   .about-text strong { color: var(--text); font-weight: 600; }
 
   .stat-list { display: flex; flex-direction: column; gap: 18px; }
-  .stat {
-    border-left: 2px solid var(--accent);
-    padding-left: 16px;
-  }
+  .stat { border-left: 2px solid var(--accent); padding-left: 16px; }
   .stat-num { font-family: var(--mono); font-size: 26px; font-weight: 700; color: var(--text); }
   .stat-label { font-size: 13px; color: var(--text-dim); }
 
-  /* CONTACT */
   .contact-box {
     background: var(--bg-raised);
     border: 1px solid var(--border);
@@ -369,12 +326,7 @@
 
   .contact-box .section-title { margin-bottom: 12px; }
 
-  /* ROADMAP */
-  .roadmap {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
+  .roadmap { display: flex; flex-direction: column; gap: 0; }
 
   .roadmap-item {
     display: grid;
@@ -386,11 +338,7 @@
 
   .roadmap-item:last-child { padding-bottom: 0; }
 
-  .roadmap-marker {
-    position: relative;
-    display: flex;
-    justify-content: center;
-  }
+  .roadmap-marker { position: relative; display: flex; justify-content: center; }
 
   .roadmap-marker::before {
     content: "";
@@ -421,10 +369,7 @@
     box-shadow: 0 0 0 4px rgba(217, 164, 65, 0.15);
   }
 
-  .roadmap-item.done .roadmap-dot {
-    border-color: var(--teal);
-    background: var(--teal);
-  }
+  .roadmap-item.done .roadmap-dot { border-color: var(--teal); background: var(--teal); }
 
   .roadmap-content {
     background: var(--bg-raised);
@@ -446,6 +391,7 @@
 
   .roadmap-item.done .roadmap-status { color: var(--teal); }
   .roadmap-item.active .roadmap-status { color: var(--accent); }
+  .roadmap-item[data-future] .roadmap-content { opacity: 0.75; }
 
   .roadmap-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
   .roadmap-desc { font-size: 13.5px; color: var(--text-dim); }
@@ -496,9 +442,9 @@
         <div class="term-line"><span class="prompt">❯</span> <span class="path">~</span> whoami</div>
         <div class="term-output">
           <div class="hero-name">Yago Esteves<span class="cursor"></span></div>
-          <div class="hero-role">// estudante de TI · futuro dev full-stack</div>
+          <div class="hero-role">// estudante de TI · front-end, back-end · rumo ao hacking ético</div>
         </div>
-        <p class="hero-desc">Estudante de TI apaixonado por programação, em transição para desenvolvimento full-stack. Hoje mergulhado em Java, sempre buscando escrever código limpo e bem estruturado.</p>
+        <p class="hero-desc">Estudante de TI apaixonado por programação, aprendendo front-end e back-end para virar desenvolvedor full-stack. Hoje mergulhado em Java, com o hacking ético no radar como próximo grande passo.</p>
         <div class="hero-cta">
           <a href="#projetos" class="btn btn-primary">ver projetos</a>
           <a href="#contato" class="btn btn-ghost">falar comigo</a>
@@ -569,9 +515,9 @@
 
     <div class="about-grid">
       <div class="about-text">
-        <p>Sou estudante de TI e estou me dedicando a virar <strong>desenvolvedor full-stack</strong>. Programar é algo que gosto de verdade, e isso aparece na forma como estudo: com calma, buscando entender o porquê das coisas.</p>
+        <p>Sou estudante de TI e estou aprendendo tanto <strong>front-end</strong> quanto <strong>back-end</strong> — quero entender o desenvolvimento web de ponta a ponta antes de me especializar.</p>
         <p>No momento estou focado em <strong>Java</strong>, praticando lógica de programação e orientação a objetos, além de aprender a usar <strong>Git e GitHub</strong> no dia a dia para versionar e organizar projetos.</p>
-        <p>Dou muito valor a código limpo — prefiro escrever algo simples e legível a algo complexo só para impressionar. É um valor que quero levar comigo conforme evoluo na carreira.</p>
+        <p>No futuro, quero migrar para <strong>hacking ético</strong> — entender como sistemas funcionam por dentro é o primeiro passo para saber protegê-los, e é por isso que estou construindo essa base como desenvolvedor primeiro.</p>
       </div>
       <div class="stat-list">
         <div class="stat">
@@ -583,8 +529,8 @@
           <div class="stat-label">linguagem em foco</div>
         </div>
         <div class="stat">
-          <div class="stat-num">100%</div>
-          <div class="stat-label">motivado a evoluir</div>
+          <div class="stat-num">🔐</div>
+          <div class="stat-label">objetivo: hacking ético</div>
         </div>
       </div>
     </div>
@@ -631,8 +577,17 @@
         <div class="roadmap-marker"><div class="roadmap-dot"></div></div>
         <div class="roadmap-content">
           <div class="roadmap-status">próximo</div>
-          <div class="roadmap-title">Desenvolvimento web full-stack</div>
-          <div class="roadmap-desc">Front-end, back-end e banco de dados — o próximo grande passo.</div>
+          <div class="roadmap-title">Front-end & back-end</div>
+          <div class="roadmap-desc">Construir aplicações completas, do banco de dados à interface.</div>
+        </div>
+      </div>
+
+      <div class="roadmap-item" data-future>
+        <div class="roadmap-marker"><div class="roadmap-dot"></div></div>
+        <div class="roadmap-content">
+          <div class="roadmap-status">futuro</div>
+          <div class="roadmap-title">Hacking ético</div>
+          <div class="roadmap-desc">Migrar para cibersegurança e pentest, usando a base como dev para entender sistemas por dentro.</div>
         </div>
       </div>
     </div>
