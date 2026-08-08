@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yago Esteves — Desenvolvedor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f12;
+    --bg-raised: #14171b;
+    --text: #e8e6e1;
+    --text-dim: #8b9096;
+    --accent: #d9a441;
+    --accent-dim: #8a6b2e;
+    --teal: #5ec8c0;
+    --border: #2a2e34;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Space Grotesk', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  ::selection { background: var(--accent); color: var(--bg); }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(13, 15, 18, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+  }
+
+  .logo {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--accent);
+  }
+
+  .logo::before { content: "~/ "; color: var(--text-dim); }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    font-family: var(--mono);
+    font-size: 13px;
+  }
+
+  .nav-links a {
+    color: var(--text-dim);
+    transition: color 0.2s ease;
+    position: relative;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-links a::before {
+    content: attr(data-cmd);
+    color: var(--teal);
+  }
+
+  @media (max-width: 640px) {
+    .nav-links { gap: 16px; font-size: 11px; }
+  }
+
+  /* HERO — terminal boot sequence */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 64px;
+    position: relative;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse 600px 400px at 20% 20%, rgba(217, 164, 65, 0.06), transparent),
+      radial-gradient(ellipse 500px 400px at 80% 60%, rgba(94, 200, 192, 0.05), transparent);
+    pointer-events: none;
+  }
+
+  .terminal {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .dot.red { background: #e05a4e; }
+  .dot.yellow { background: #e0b24e; }
+  .dot.green { background: #4ea865; }
+
+  .terminal-title {
+    margin-left: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+
+  .terminal-body {
+    padding: 28px 24px 32px;
+    font-family: var(--mono);
+    font-size: 14px;
+  }
+
+  .term-line { margin-bottom: 8px; color: var(--text-dim); }
+  .term-line .prompt { color: var(--teal); }
+  .term-line .path { color: var(--accent); }
+
+  .term-output {
+    margin: 18px 0 6px;
+  }
+
+  .hero-name {
+    font-family: var(--sans);
+    font-size: clamp(32px, 6vw, 56px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 10px;
+    height: 0.9em;
+    background: var(--accent);
+    margin-left: 4px;
+    vertical-align: text-bottom;
+    animation: blink 1s step-start infinite;
+  }
+
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .hero-role {
+    font-family: var(--mono);
+    font-size: 16px;
+    color: var(--teal);
+    margin-top: 10px;
+  }
+
+  .hero-desc {
+    max-width: 520px;
+    color: var(--text-dim);
+    margin-top: 18px;
+    font-size: 15px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 14px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 11px 20px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+    font-weight: 700;
+  }
+
+  .btn-primary:hover { background: #eab654; border-color: #eab654; }
+
+  .btn-ghost { color: var(--text); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  section { padding: 90px 0; }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+  }
+
+  .section-title {
+    font-size: clamp(24px, 4vw, 32px);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* PROJECTS */
+  .projects { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+
+  .project {
+    background: var(--bg-raised);
+    padding: 28px;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 24px;
+    transition: background 0.2s ease;
+  }
+
+  .project:hover { background: #171b20; }
+
+  @media (max-width: 640px) {
+    .project { grid-template-columns: 1fr; gap: 10px; }
+  }
+
+  .project-num {
+    font-family: var(--mono);
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+
+  .project-name {
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .project-name a:hover { color: var(--accent); }
+
+  .project-desc {
+    color: var(--text-dim);
+    font-size: 14.5px;
+    max-width: 560px;
+    margin-bottom: 14px;
+  }
+
+  .project-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--teal);
+    background: rgba(94, 200, 192, 0.08);
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px;
+  }
+
+  .skill-card {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px;
+  }
+
+  .skill-cat {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+  }
+
+  .skill-items { font-size: 14px; color: var(--text-dim); line-height: 1.8; }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 50px;
+    align-items: start;
+  }
+
+  @media (max-width: 700px) {
+    .about-grid { grid-template-columns: 1fr; }
+  }
+
+  .about-text p { color: var(--text-dim); margin-bottom: 16px; font-size: 15.5px; }
+  .about-text strong { color: var(--text); font-weight: 600; }
+
+  .stat-list { display: flex; flex-direction: column; gap: 18px; }
+  .stat {
+    border-left: 2px solid var(--accent);
+    padding-left: 16px;
+  }
+  .stat-num { font-family: var(--mono); font-size: 26px; font-weight: 700; color: var(--text); }
+  .stat-label { font-size: 13px; color: var(--text-dim); }
+
+  /* CONTACT */
+  .contact-box {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 48px;
+    text-align: center;
+  }
+
+  .contact-box .section-title { margin-bottom: 12px; }
+
+  /* ROADMAP */
+  .roadmap {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .roadmap-item {
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 18px;
+    padding-bottom: 28px;
+    position: relative;
+  }
+
+  .roadmap-item:last-child { padding-bottom: 0; }
+
+  .roadmap-marker {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .roadmap-marker::before {
+    content: "";
+    position: absolute;
+    top: 22px;
+    bottom: -28px;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .roadmap-item:last-child .roadmap-marker::before { display: none; }
+
+  .roadmap-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    background: var(--bg);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .roadmap-item.active .roadmap-dot {
+    border-color: var(--accent);
+    background: var(--accent);
+    box-shadow: 0 0 0 4px rgba(217, 164, 65, 0.15);
+  }
+
+  .roadmap-item.done .roadmap-dot {
+    border-color: var(--teal);
+    background: var(--teal);
+  }
+
+  .roadmap-content {
+    background: var(--bg-raised);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+  }
+
+  .roadmap-item.active .roadmap-content { border-color: var(--accent-dim); }
+
+  .roadmap-status {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+  }
+
+  .roadmap-item.done .roadmap-status { color: var(--teal); }
+  .roadmap-item.active .roadmap-status { color: var(--accent); }
+
+  .roadmap-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+  .roadmap-desc { font-size: 13.5px; color: var(--text-dim); }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+
+  footer {
+    text-align: center;
+    padding: 32px 0;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="#" class="logo">yago.esteves</a>
+    <div class="nav-links">
+      <a href="#projetos" data-cmd="cd ">projetos</a>
+      <a href="#skills" data-cmd="cd ">skills</a>
+      <a href="#sobre" data-cmd="cd ">sobre</a>
+      <a href="#roadmap" data-cmd="cd ">roadmap</a>
+      <a href="#contato" data-cmd="cd ">contato</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="terminal-title">yago@dev — zsh</span>
+      </div>
+      <div class="terminal-body">
+        <div class="term-line"><span class="prompt">❯</span> <span class="path">~</span> whoami</div>
+        <div class="term-output">
+          <div class="hero-name">Yago Esteves<span class="cursor"></span></div>
+          <div class="hero-role">// estudante de TI · futuro dev full-stack</div>
+        </div>
+        <p class="hero-desc">Estudante de TI apaixonado por programação, em transição para desenvolvimento full-stack. Hoje mergulhado em Java, sempre buscando escrever código limpo e bem estruturado.</p>
+        <div class="hero-cta">
+          <a href="#projetos" class="btn btn-primary">ver projetos</a>
+          <a href="#contato" class="btn btn-ghost">falar comigo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projetos">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-tag">01</span>
+      <h2 class="section-title">Projetos</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="projects">
+      <div class="project" style="grid-template-columns: 1fr;">
+        <div>
+          <div class="project-name" style="color: var(--accent);">$ git status</div>
+          <p class="project-desc" style="margin-bottom: 8px;">Nenhum projeto publicado ainda — estou estudando Java e me preparando para postar os primeiros repositórios no GitHub em breve.</p>
+          <div class="project-tags">
+            <span class="tag">em construção</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-tag">02</span>
+      <h2 class="section-title">Stack</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-cat">Linguagens</div>
+        <div class="skill-items">Java</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-cat">Ferramentas</div>
+        <div class="skill-items">Git<br>GitHub</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-cat">Estudando</div>
+        <div class="skill-items">Desenvolvimento<br>full-stack</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-cat">Foco</div>
+        <div class="skill-items">Código limpo<br>Boas práticas</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sobre">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-tag">03</span>
+      <h2 class="section-title">Sobre</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Sou estudante de TI e estou me dedicando a virar <strong>desenvolvedor full-stack</strong>. Programar é algo que gosto de verdade, e isso aparece na forma como estudo: com calma, buscando entender o porquê das coisas.</p>
+        <p>No momento estou focado em <strong>Java</strong>, praticando lógica de programação e orientação a objetos, além de aprender a usar <strong>Git e GitHub</strong> no dia a dia para versionar e organizar projetos.</p>
+        <p>Dou muito valor a código limpo — prefiro escrever algo simples e legível a algo complexo só para impressionar. É um valor que quero levar comigo conforme evoluo na carreira.</p>
+      </div>
+      <div class="stat-list">
+        <div class="stat">
+          <div class="stat-num">TI</div>
+          <div class="stat-label">estudante</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">Java</div>
+          <div class="stat-label">linguagem em foco</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">motivado a evoluir</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="roadmap">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-tag">04</span>
+      <h2 class="section-title">Roadmap</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="roadmap">
+      <div class="roadmap-item done">
+        <div class="roadmap-marker"><div class="roadmap-dot"></div></div>
+        <div class="roadmap-content">
+          <div class="roadmap-status">concluído</div>
+          <div class="roadmap-title">Lógica de programação</div>
+          <div class="roadmap-desc">Fundamentos de algoritmos, estruturas de controle e resolução de problemas.</div>
+        </div>
+      </div>
+
+      <div class="roadmap-item active">
+        <div class="roadmap-marker"><div class="roadmap-dot"></div></div>
+        <div class="roadmap-content">
+          <div class="roadmap-status">em andamento</div>
+          <div class="roadmap-title">Java</div>
+          <div class="roadmap-desc">Orientação a objetos, sintaxe e boas práticas de código limpo.</div>
+        </div>
+      </div>
+
+      <div class="roadmap-item">
+        <div class="roadmap-marker"><div class="roadmap-dot"></div></div>
+        <div class="roadmap-content">
+          <div class="roadmap-status">próximo</div>
+          <div class="roadmap-title">Git & GitHub</div>
+          <div class="roadmap-desc">Versionamento de código e publicação dos primeiros projetos.</div>
+        </div>
+      </div>
+
+      <div class="roadmap-item">
+        <div class="roadmap-marker"><div class="roadmap-dot"></div></div>
+        <div class="roadmap-content">
+          <div class="roadmap-status">próximo</div>
+          <div class="roadmap-title">Desenvolvimento web full-stack</div>
+          <div class="roadmap-desc">Front-end, back-end e banco de dados — o próximo grande passo.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="container">
+    <div class="contact-box">
+      <span class="section-tag">05 // contato</span>
+      <h2 class="section-title">Vamos conversar</h2>
+      <p style="color: var(--text-dim); max-width: 480px; margin: 0 auto;">Aberto a oportunidades de estágio e a trocar ideia sobre programação. Me encontra pelo GitHub por enquanto.</p>
+      <div class="contact-links">
+        <a href="https://github.com/Eu-Yago" target="_blank" rel="noopener" class="btn btn-primary">ver GitHub</a>
+        <span class="btn btn-ghost" style="opacity: 0.45; cursor: not-allowed; border-style: dashed;" aria-disabled="true">e-mail — indisponível no momento</span>
+        <span class="btn btn-ghost" style="opacity: 0.45; cursor: not-allowed; border-style: dashed;" aria-disabled="true">LinkedIn — indisponível no momento</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    yago.esteves — construído com café e curiosidade
+  </div>
+</footer>
+
+</body>
+</html>
