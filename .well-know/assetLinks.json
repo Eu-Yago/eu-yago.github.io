@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "io.github.euyago.desvioestelar",
+        "sha256_cert_fingerprints": ["4B:27:53:87:60:67:47:2E:69:8D:1E:D3:98:75:B6:80:A7:F3:F2:55:B4:63:43:2F:6D:6D:71:6F:8A:7C:52:71"]
+      }
+    }]
